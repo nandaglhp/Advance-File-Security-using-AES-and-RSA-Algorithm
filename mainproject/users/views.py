@@ -1,20 +1,20 @@
 import os
-import sys
-from Crypto import Random
-from Crypto.Cipher import AES
 import os.path
+import sys
+import time
 from os import listdir
 from os.path import isfile, join
-import time
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm
-from .forms import UserRegisterForm
+
+from Crypto import Random
+from Crypto.Cipher import AES
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.contrib.auth.forms import UserCreationForm
 from django.core.files.storage import FileSystemStorage
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
 
+from .forms import UserRegisterForm
 
 
 def external(request):
@@ -80,6 +80,23 @@ clear = lambda: os.system('cls')
 
 
 def submits(request):
+    if request.POST.get('enc'):
+        enc.encrypt_file('path/to/your/file')  # Ganti dengan path yang sesuai
+        data1 = {
+            'h3': 'File Encrypted Successfully..!'
+        }
+    elif request.POST.get('dnc'):
+        enc.decrypt_file('path/to/your/file')  # Ganti dengan path yang sesuai
+        data1 = {
+            'h3': 'File Decrypted Successfully...!'
+        }
+    else:
+        data1 = {
+            'h3': 'No action specified'
+        }
+
+    return render(request, 'users/profile.html', data1)
+
     file_fullpath = sys.argv[0]
     file_name = sys.argv[1:]
     ok1=val()
